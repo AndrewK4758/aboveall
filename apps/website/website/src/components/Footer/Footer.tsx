@@ -114,7 +114,7 @@ export const Footer: React.FC = () => {
               <EmailIcon sx={{ color: '#38BDF8', fontSize: '1.2rem', mt: '2px' }} />
               <div>
                 <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>Inquiries &amp; Dispatch</div>
-                <a href="mailto:info@aboveallfla.com" className={styles.contactEmailLink}>
+                <a href='mailto:info@aboveallfla.com' className={styles.contactEmailLink}>
                   info@aboveallfla.com
                 </a>
               </div>
@@ -124,7 +124,7 @@ export const Footer: React.FC = () => {
               <PhoneIcon sx={{ color: '#FF7A00', fontSize: '1.2rem', mt: '2px' }} />
               <div>
                 <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>24/7 Hotline</div>
-                <a href="tel:14077734719" style={{ color: '#FFFFFF', fontWeight: 600 }}>
+                <a href='tel:14077734719' style={{ color: '#FFFFFF', fontWeight: 600 }}>
                   (407) 773-4719
                 </a>
               </div>

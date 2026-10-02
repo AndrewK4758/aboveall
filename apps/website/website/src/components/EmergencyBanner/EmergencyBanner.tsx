@@ -16,9 +16,9 @@ export const EmergencyBanner: React.FC = () => {
           </div>
 
           <a
-            href="tel:14077734719"
+            href='tel:14077734719'
             className={styles.phoneCta}
-            aria-label="Call 24/7 Dispatch at (407) 773-4719"
+            aria-label='Call 24/7 Dispatch at (407) 773-4719'
           >
             <PhoneInTalkIcon sx={{ fontSize: '1.05rem' }} />
             <span>Call 24/7 Dispatch: (407) 773-4719</span>

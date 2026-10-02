@@ -3,117 +3,44 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import SecurityIcon from '@mui/icons-material/Security';
 import Container from '@mui/material/Container';
 import React from 'react';
-import { useLoaderData } from 'react-router';
 
 import {
   Hero,
   EmergencyBanner,
-  ServiceCard,
+  SectorsShowcase,
   FeatureHighlights,
   ContactForm,
-  Testimonials,
 } from '../../components';
 import { Heading, Text, Badge } from '../../elements';
 
 import styles from './HomePage.module.css';
 
 export interface HomeLoaderData {
-  featuredServices: Array<{
-    title: string;
-    category: string;
-    description: string;
-    imageSrc: string;
-    features: string[];
-    tone: 'orange' | 'cyan' | 'certified';
-  }>;
+  company: {
+    name: string;
+    phone: string;
+    email: string;
+  };
 }
 
 export const homeLoader = async (): Promise<HomeLoaderData> => {
   return {
-    featuredServices: [
-      {
-        title: 'Residential HVAC & Heat Pumps',
-        category: 'Residential',
-        description:
-          'High-efficiency SEER2 inverter air conditioners, variable-speed heat pumps, and precision indoor air filtration tailored for Florida humidity.',
-        imageSrc: '/residential-hvac.svg',
-        features: [
-          'Emergency Same-Day AC Repair',
-          'Carrier, Trane & Daikin Inverters',
-          'Duct Sanitization & Dehumidification',
-          'Quiet Whisper-Cool Technology',
-        ],
-        tone: 'cyan',
-      },
-      {
-        title: 'Commercial Rooftop & VRF Units',
-        category: 'Commercial',
-        description:
-          'Engineered rooftop package units, split systems, and Variable Refrigerant Flow (VRF) systems for offices, retail centers, and hospitality.',
-        imageSrc: '/commercial-hvac.svg',
-        features: [
-          '5 to 100+ Ton Packaged Systems',
-          'Energy-Optimized VRF Zoning',
-          'Planned Preventative Maintenance (PPM)',
-          'Custom Automated Controls & BAS',
-        ],
-        tone: 'orange',
-      },
-      {
-        title: 'Industrial Chillers & Piping',
-        category: 'Industrial Mechanical',
-        description:
-          'Heavy industrial cooling towers, centrifugal chillers, steam boilers, and process hydronic piping for manufacturing and manufacturing facilities.',
-        imageSrc: '/industrial-mechanical.svg',
-        features: [
-          'Centrifugal & Screw Chiller Overhauls',
-          'Certified Welded Process Piping',
-          'Boiler & Cooling Tower Rebuilds',
-          'Vibration & Ultrasonic Analysis',
-        ],
-        tone: 'certified',
-      },
-    ],
+    company: {
+      name: 'Above All HVAC & Mechanical',
+      phone: '(407) 773-4719',
+      email: 'info@aboveallfla.com',
+    },
   };
 };
 
 export const HomePage: React.FC = () => {
-  const data = useLoaderData() as HomeLoaderData;
-
   return (
     <div>
       <Hero />
       <EmergencyBanner />
 
-      {/* Core Services Section */}
-      <section className={styles.servicesSection}>
-        <Container maxWidth='xl'>
-          <div className={styles.sectionHeader}>
-            <Badge label='FULL SPECTRUM HVAC &amp; MECHANICAL' customTone='cyan' sx={{ mb: 1.5 }} />
-            <Heading variant='h2' gradient='blue' gutterBottom>
-              Precision Solutions For Every Scale
-            </Heading>
-            <Text variant='body1' sx={{ color: 'text.secondary' }}>
-              Whether safeguarding your family&apos;s home comfort or maintaining mission-critical
-              industrial chiller loops, our certified engineers deliver absolute reliability.
-            </Text>
-          </div>
-
-          <div className={styles.servicesGrid}>
-            {data.featuredServices.map((svc, i) => (
-              <ServiceCard
-                key={i}
-                title={svc.title}
-                category={svc.category}
-                description={svc.description}
-                imageSrc={svc.imageSrc}
-                features={svc.features}
-                tone={svc.tone}
-              />
-            ))}
-          </div>
-        </Container>
-      </section>
+      {/* Unified Sectors Showcase: Tab set of Residential, Commercial, Industrial with Carousels & Testimonials */}
+      <SectorsShowcase />
 
       {/* Highlights Pillars */}
       <FeatureHighlights />
@@ -143,7 +70,8 @@ export const HomePage: React.FC = () => {
                       Rapid Response Guarantee
                     </Heading>
                     <Text variant='body2' sx={{ color: 'text.secondary' }}>
-                      Priority dispatch for emergency cooling outages and industrial downtime.
+                      Priority dispatch across Florida for emergency cooling outages and industrial
+                      downtime.
                     </Text>
                   </div>
                 </div>
@@ -182,14 +110,11 @@ export const HomePage: React.FC = () => {
             {/* The single reusable contact form */}
             <ContactForm
               title='Request Service or Free Quote'
-              subtitle='All submissions route directly to our dispatch operations desk.'
+              subtitle='All submissions route directly to info@aboveallfla.com.'
             />
           </div>
         </Container>
       </section>
-
-      {/* Client Testimonials */}
-      <Testimonials />
     </div>
   );
 };

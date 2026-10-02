@@ -57,9 +57,9 @@ export const Header: React.FC = () => {
           <Box className={styles.actionsGroup}>
             {/* 24/7 Phone Dispatch */}
             <a
-              href="tel:14077734719"
+              href='tel:14077734719'
               className={styles.emergencyPhone}
-              aria-label="Call 24/7 HVAC Dispatch at (407) 773-4719"
+              aria-label='Call 24/7 HVAC Dispatch at (407) 773-4719'
             >
               <PhoneInTalkIcon sx={{ fontSize: '1.1rem' }} />
               <Box sx={{ display: { xs: 'none', lg: 'inline' } }}>(407) 773-4719</Box>
@@ -138,9 +138,9 @@ export const Header: React.FC = () => {
               Request Free Estimate
             </Button>
             <Button
-              component="a"
-              href="tel:14077734719"
-              customVariant="primary-navy"
+              component='a'
+              href='tel:14077734719'
+              customVariant='primary-navy'
               fullWidth
               startIcon={<PhoneInTalkIcon />}
             >

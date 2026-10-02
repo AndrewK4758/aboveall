@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import BusinessIcon from '@mui/icons-material/Business';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import StarIcon from '@mui/icons-material/Star';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
-import BusinessIcon from '@mui/icons-material/Business';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
+import StarIcon from '@mui/icons-material/Star';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import React, { useState } from 'react';
+import { Link } from 'react-router';
+
 import { Card, Heading, Text, Badge, Button } from '../../elements';
+
 import styles from './SectorsShowcase.module.css';
 
 interface CarouselSlide {
@@ -164,19 +166,21 @@ const SECTOR_DATA: SectorData[] = [
 ];
 
 export const SectorsShowcase: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'residential' | 'commercial' | 'industrial'>('residential');
+  const [activeTab, setActiveTab] = useState<'residential' | 'commercial' | 'industrial'>(
+    'residential',
+  );
   const [slideIndices, setSlideIndices] = useState<Record<string, number>>({
     residential: 0,
     commercial: 0,
     industrial: 0,
   });
 
-  const activeSector = SECTOR_DATA.find((s) => s.id === activeTab)!;
+  const activeSector = SECTOR_DATA.find(s => s.id === activeTab)!;
   const currentSlideIdx = slideIndices[activeTab] || 0;
   const currentSlide = activeSector.slides[currentSlideIdx];
 
   const handlePrev = () => {
-    setSlideIndices((prev) => {
+    setSlideIndices(prev => {
       const cur = prev[activeTab] || 0;
       const total = activeSector.slides.length;
       return { ...prev, [activeTab]: (cur - 1 + total) % total };
@@ -184,7 +188,7 @@ export const SectorsShowcase: React.FC = () => {
   };
 
   const handleNext = () => {
-    setSlideIndices((prev) => {
+    setSlideIndices(prev => {
       const cur = prev[activeTab] || 0;
       const total = activeSector.slides.length;
       return { ...prev, [activeTab]: (cur + 1) % total };
@@ -192,32 +196,32 @@ export const SectorsShowcase: React.FC = () => {
   };
 
   const setSlide = (idx: number) => {
-    setSlideIndices((prev) => ({ ...prev, [activeTab]: idx }));
+    setSlideIndices(prev => ({ ...prev, [activeTab]: idx }));
   };
 
   return (
-    <section className={styles.sectionRoot} id="sectors-showcase">
-      <Container maxWidth="xl">
+    <section className={styles.sectionRoot} id='sectors-showcase'>
+      <Container maxWidth='xl'>
         <div className={styles.headerWrapper}>
-          <Badge label="COMPLETE SECTOR CAPABILITIES" customTone="orange" sx={{ mb: 1.5 }} />
-          <Heading variant="h2" gradient="blue" gutterBottom>
+          <Badge label='COMPLETE SECTOR CAPABILITIES' customTone='orange' sx={{ mb: 1.5 }} />
+          <Heading variant='h2' gradient='blue' gutterBottom>
             Engineered For Every Environment
           </Heading>
-          <Text variant="body1" sx={{ color: 'text.secondary', fontSize: '1.1rem' }}>
+          <Text variant='body1' sx={{ color: 'text.secondary', fontSize: '1.1rem' }}>
             Explore our specialized solutions, project galleries, and verified client testimonials
             across residential homes, commercial properties, and heavy industrial facilities.
           </Text>
         </div>
 
         {/* Tab Selection */}
-        <div className={styles.tabsContainer} role="tablist" aria-label="HVAC Sectors">
+        <div className={styles.tabsContainer} role='tablist' aria-label='HVAC Sectors'>
           <div className={styles.tabList}>
-            {SECTOR_DATA.map((sector) => {
+            {SECTOR_DATA.map(sector => {
               const isActive = activeTab === sector.id;
               return (
                 <button
                   key={sector.id}
-                  role="tab"
+                  role='tab'
                   aria-selected={isActive}
                   aria-controls={`panel-${sector.id}`}
                   id={`tab-${sector.id}`}
@@ -236,7 +240,7 @@ export const SectorsShowcase: React.FC = () => {
 
         {/* Unified Sector Panel */}
         <div
-          role="tabpanel"
+          role='tabpanel'
           id={`panel-${activeSector.id}`}
           aria-labelledby={`tab-${activeSector.id}`}
           className={styles.tabPanel}
@@ -255,18 +259,18 @@ export const SectorsShowcase: React.FC = () => {
                 {/* Next/Prev Navigation Buttons */}
                 <div className={styles.carouselNavOverlay}>
                   <IconButton
-                    aria-label="Previous slide"
+                    aria-label='Previous slide'
                     onClick={handlePrev}
                     className={styles.navArrowBtn}
-                    size="small"
+                    size='small'
                   >
                     <ChevronLeftIcon />
                   </IconButton>
                   <IconButton
-                    aria-label="Next slide"
+                    aria-label='Next slide'
                     onClick={handleNext}
                     className={styles.navArrowBtn}
-                    size="small"
+                    size='small'
                   >
                     <ChevronRightIcon />
                   </IconButton>
@@ -275,28 +279,29 @@ export const SectorsShowcase: React.FC = () => {
 
               <div className={styles.carouselCaption}>
                 <Box sx={{ mb: 1 }}>
-                  <Badge label={currentSlide.badge} customTone="cyan" />
+                  <Badge label={currentSlide.badge} customTone='cyan' />
                 </Box>
 
-                <Heading variant="h5" gutterBottom>
+                <Heading variant='h5' gutterBottom>
                   {currentSlide.title}
                 </Heading>
 
-                <Text variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6, mb: 2 }}>
+                <Text variant='body2' sx={{ color: 'text.secondary', lineHeight: 1.6, mb: 2 }}>
                   {currentSlide.description}
                 </Text>
 
                 <div className={styles.highlightPills}>
                   {currentSlide.specs.map((spec, i) => (
-                    <Badge key={i} label={spec} customTone="certified" />
+                    <Badge key={i} label={spec} customTone='certified' />
                   ))}
                 </div>
 
                 {/* Dot Indicators */}
-                <div className={styles.dotsRow} role="tablist" aria-label="Slide indicators">
+                <div className={styles.dotsRow} role='tablist' aria-label='Slide indicators'>
                   {activeSector.slides.map((_, idx) => (
                     <button
                       key={idx}
+                      role='tab'
                       className={`${styles.dot} ${idx === currentSlideIdx ? styles.dotActive : ''}`}
                       onClick={() => setSlide(idx)}
                       aria-label={`Go to slide ${idx + 1}`}
@@ -310,26 +315,24 @@ export const SectorsShowcase: React.FC = () => {
             {/* Right: Sector Specific Testimonial */}
             <Card className={styles.testimonialSideCard} accentBorderTop>
               <Box sx={{ mb: 2 }}>
-                <Badge label={activeSector.testimonial.projectTag} customTone="orange" />
+                <Badge label={activeSector.testimonial.projectTag} customTone='orange' />
               </Box>
 
-              <div className={styles.starGroup} aria-label="5 out of 5 stars rating">
+              <div className={styles.starGroup} aria-label='5 out of 5 stars rating'>
                 {[...Array(activeSector.testimonial.rating)].map((_, i) => (
-                  <StarIcon key={i} fontSize="small" />
+                  <StarIcon key={i} fontSize='small' />
                 ))}
               </div>
 
-              <p className={styles.quoteBlock}>
-                &ldquo;{activeSector.testimonial.quote}&rdquo;
-              </p>
+              <p className={styles.quoteBlock}>&ldquo;{activeSector.testimonial.quote}&rdquo;</p>
 
               <div className={styles.clientDetails}>
                 <div className={styles.avatarCircle}>{activeSector.testimonial.initials}</div>
                 <Box>
-                  <Text variant="subtitle2" sx={{ fontWeight: 800 }}>
+                  <Text variant='subtitle2' sx={{ fontWeight: 800 }}>
                     {activeSector.testimonial.author}
                   </Text>
-                  <Text variant="caption" sx={{ color: 'text.secondary', display: 'block' }}>
+                  <Text variant='caption' sx={{ color: 'text.secondary', display: 'block' }}>
                     {activeSector.testimonial.role} &bull; {activeSector.testimonial.location}
                   </Text>
                 </Box>
@@ -338,8 +341,8 @@ export const SectorsShowcase: React.FC = () => {
               <Box sx={{ mt: 3, pt: 2, borderTop: '1px solid rgba(14, 45, 84, 0.08)' }}>
                 <Button
                   component={Link}
-                  to="/contact"
-                  customVariant="primary-orange"
+                  to='/contact'
+                  customVariant='primary-orange'
                   fullWidth
                   endIcon={<ArrowForwardIcon />}
                 >

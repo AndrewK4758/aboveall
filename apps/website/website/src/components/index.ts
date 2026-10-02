@@ -6,3 +6,4 @@ export { ServiceCard, type ServiceCardProps } from './ServiceCard/ServiceCard';
 export { EmergencyBanner } from './EmergencyBanner/EmergencyBanner';
 export { FeatureHighlights } from './FeatureHighlights/FeatureHighlights';
 export { Testimonials, type TestimonialItem } from './Testimonials/Testimonials';
+export { SectorsShowcase } from './SectorsShowcase/SectorsShowcase';

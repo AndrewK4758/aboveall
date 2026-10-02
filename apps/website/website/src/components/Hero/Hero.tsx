@@ -1,25 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router';
-import Container from '@mui/material/Container';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
+import Container from '@mui/material/Container';
+import React from 'react';
+import { Link } from 'react-router';
+
 import { Button, Heading, Badge } from '../../elements';
+
 import styles from './Hero.module.css';
 
 export const Hero: React.FC = () => {
   return (
     <section className={styles.heroSection}>
-      <Container maxWidth="xl">
+      <Container maxWidth='xl'>
         <div className={styles.heroGrid}>
           {/* Text Content */}
           <div>
             <div className={styles.badgeRow}>
-              <Badge label="24/7 RAPID DISPATCH" customTone="emergency" />
-              <Badge label="LICENSED &amp; INSURED" customTone="certified" />
-              <Badge label="RESIDENTIAL TO INDUSTRIAL" customTone="orange" />
+              <Badge label='24/7 RAPID DISPATCH' customTone='emergency' />
+              <Badge label='LICENSED &amp; INSURED' customTone='certified' />
+              <Badge label='RESIDENTIAL TO INDUSTRIAL' customTone='orange' />
             </div>
 
-            <Heading variant="h1" className={styles.title}>
+            <Heading variant='h1' className={styles.title}>
               Engineering Total Climate &amp;{' '}
               <span className={styles.accentOrange}>Mechanical</span> Precision.
             </Heading>
@@ -33,9 +35,9 @@ export const Hero: React.FC = () => {
             <div className={styles.ctaGroup}>
               <Button
                 component={Link}
-                to="/contact"
-                customVariant="primary-orange"
-                size="large"
+                to='/contact'
+                customVariant='primary-orange'
+                size='large'
                 glow
                 startIcon={<CalendarMonthIcon />}
               >
@@ -43,12 +45,12 @@ export const Hero: React.FC = () => {
               </Button>
 
               <Button
-                component="a"
-                href="tel:14077734719"
-                customVariant="primary-navy"
-                size="large"
+                component='a'
+                href='tel:14077734719'
+                customVariant='primary-navy'
+                size='large'
                 startIcon={<PhoneInTalkIcon />}
-                aria-label="Call 24/7 Dispatch at (407) 773-4719"
+                aria-label='Call 24/7 Dispatch at (407) 773-4719'
               >
                 (407) 773-4719
               </Button>
@@ -75,8 +77,8 @@ export const Hero: React.FC = () => {
           <div className={styles.heroVisual}>
             <div className={styles.heroLogoShowcase}>
               <img
-                src="/logo.png"
-                alt="Above All HVAC & Mechanical Logo"
+                src='/logo.png'
+                alt='Above All HVAC & Mechanical Logo'
                 className={styles.largeLogoImg}
               />
               <div className={styles.heroTaglinePill}>

@@ -36,7 +36,7 @@ html, body {
   outline-offset: 2px;
 }
 
-:global(.dark) :focus-visible {
+.dark :focus-visible {
   outline: 3px solid #38BDF8;
 }
 

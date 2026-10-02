@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
+
 import { Header, Footer } from '../../components';
+
 import styles from './RootLayout.module.css';
 
 function ScrollToTop() {
