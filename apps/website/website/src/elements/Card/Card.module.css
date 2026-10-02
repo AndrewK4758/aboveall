@@ -6,8 +6,13 @@
 }
 
 .hoverLift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 36px -8px rgba(14, 45, 84, 0.16) !important;
+  box-shadow: 0 20px 40px -8px rgba(14, 45, 84, 0.14) !important;
+  border-color: rgba(14, 45, 84, 0.18) !important;
+}
+
+:global(.dark) .hoverLift:hover {
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.6) !important;
+  border-color: rgba(56, 189, 248, 0.28) !important;
 }
 
 .glass {

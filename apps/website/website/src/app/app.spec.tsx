@@ -1,7 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 import { ContactForm } from '../components/ContactForm/ContactForm';
+import { SectorsShowcase } from '../components/SectorsShowcase/SectorsShowcase';
 import { Button, Card, Badge, ThemeToggle, LogoEmblem } from '../elements';
 import { AppThemeProvider } from '../theme/ThemeContext';
 import App from './app';
@@ -140,6 +142,45 @@ describe('Above All HVAC & Mechanical Application', () => {
     // Fix the email
     fireEvent.change(emailInput, { target: { value: 'valid@aboveallfla.com' } });
     expect(screen.queryByText(/Please enter a valid email address/i)).toBeNull();
+  });
+
+  it('renders customer testimonial carousel with image above and testimonial below for each sector tab', () => {
+    render(
+      <AppThemeProvider>
+        <MemoryRouter>
+          <SectorsShowcase />
+        </MemoryRouter>
+      </AppThemeProvider>,
+    );
+
+    // Verify 3 tabs
+    const residentialTab = screen.getByRole('tab', { name: /Residential/i });
+    const commercialTab = screen.getByRole('tab', { name: /Commercial/i });
+    const industrialTab = screen.getByRole('tab', { name: /Industrial/i });
+
+    expect(residentialTab).toBeDefined();
+    expect(commercialTab).toBeDefined();
+    expect(industrialTab).toBeDefined();
+
+    // In Residential tab, first slide author is Marcus & Sarah Henderson
+    expect(screen.getByText(/Marcus & Sarah Henderson/i)).toBeDefined();
+
+    // Verify image with alt text is rendered
+    const img = screen.getByAltText(/Palm Beach Gardens/i);
+    expect(img).toBeDefined();
+
+    // Test next button advances slide to Dr. Aris Thorne
+    const nextBtn = screen.getByRole('button', { name: /Next testimonial/i });
+    fireEvent.click(nextBtn);
+    expect(screen.getByText(/Dr. Aris Thorne/i)).toBeDefined();
+
+    // Switch to Commercial tab
+    fireEvent.click(commercialTab);
+    expect(screen.getByText(/David Vance/i)).toBeDefined();
+
+    // Switch to Industrial tab
+    fireEvent.click(industrialTab);
+    expect(screen.getByText(/Elena Rostova/i)).toBeDefined();
   });
 
   it('renders base elements with custom variants and the SVG LogoEmblem', () => {

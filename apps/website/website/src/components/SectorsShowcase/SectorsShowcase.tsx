@@ -2,184 +2,273 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import BusinessIcon from '@mui/icons-material/Business';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import StarIcon from '@mui/icons-material/Star';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 
 import { Badge, Button, Card, Heading, Text } from '../../elements';
 
 import styles from './SectorsShowcase.module.css';
 
-interface CarouselSlide {
+export interface SectorTestimonialSlide {
+  id: string;
   image: string;
-  badge: string;
-  title: string;
-  description: string;
-  specs: string[];
+  imageAlt: string;
+  projectBadge: string;
+  projectSpecs: string[];
+  quote: string;
+  clientName: string;
+  clientRole: string;
+  companyOrLocation: string;
+  rating: number;
+  verifiedBadge: string;
+  avatarInitials: string;
 }
 
-interface SectorData {
+export interface SectorData {
   id: 'residential' | 'commercial' | 'industrial';
   label: string;
+  headline: string;
   icon: React.ReactNode;
-  slides: CarouselSlide[];
-  testimonial: {
-    quote: string;
-    author: string;
-    role: string;
-    location: string;
-    initials: string;
-    rating: number;
-    projectTag: string;
-  };
+  slides: SectorTestimonialSlide[];
 }
 
-const SECTOR_DATA: SectorData[] = [
+export const SECTOR_DATA: SectorData[] = [
   {
     id: 'residential',
     label: 'Residential',
-    icon: <HomeWorkIcon sx={{ fontSize: '1.2rem', mr: 1 }} />,
+    headline: 'Homeowners Trust Above All For Florida Comfort & Speed',
+    icon: <HomeWorkIcon sx={{ fontSize: '1.25rem', mr: 1 }} />,
     slides: [
       {
+        id: 'res-1',
         image: '/residential-hvac.svg',
-        badge: 'High-Efficiency Inverter AC',
-        title: 'Variable-Speed Inverter Split Systems',
-        description:
-          'SEER2 ratings up to 24. Modulates cooling down to 25% capacity for whisper-quiet performance and maximum Florida humidity control.',
-        specs: ['Up to 24 SEER2 Efficiency', 'Whisper-Quiet 52 dB', '10-Yr Parts Warranty']
+        imageAlt: 'High-Efficiency Inverter Heat Pump in Palm Beach Gardens',
+        projectBadge: 'Variable-Speed Inverter Replacement | Palm Beach Gardens, FL',
+        projectSpecs: [
+          '22 SEER2 Inverter Split System',
+          'Whisper-Quiet 52 dB',
+          '10-Yr Parts & Labor',
+        ],
+        quote:
+          'When our AC gave out on a Saturday afternoon with family visiting, Above All had a technician at our door in 40 minutes. They diagnosed the issue immediately, showed us the broken part, and had cold air blowing before dinner. Honest, polite, and top-tier workmanship.',
+        clientName: 'Marcus & Sarah Henderson',
+        clientRole: 'Homeowners',
+        companyOrLocation: 'Palm Beach Gardens, FL',
+        rating: 5,
+        verifiedBadge: 'Verified Florida Homeowner',
+        avatarInitials: 'MH',
       },
       {
+        id: 'res-2',
         image: '/maintenance-service.svg',
-        badge: 'Precision Heat Pumps',
-        title: 'Multi-Zone Ductless Mini-Splits',
-        description:
-          'Independent zoned climate control for Florida sunrooms, home offices, and guest suites without expensive ductwork additions.',
-        specs: ['Individual Room Thermostats', 'Zero Duct Energy Loss', 'Hyper-Heating Tech']
+        imageAlt: 'Multi-Zone Climate Architecture in Jupiter Waterfront Home',
+        projectBadge: 'Multi-Zone Ductless Mini-Splits | Jupiter Waterfront',
+        projectSpecs: [
+          'Multi-Room Independent Zones',
+          'Zero Duct Energy Loss',
+          'Hyper-Heat Florida Humidity Defense',
+        ],
+        quote:
+          'Our master wing was consistently 4 degrees hotter than the rest of the house despite multiple quotes from other companies. Above All engineered a dedicated multi-zone mini-split system that finally balanced our humidity and eliminated the hot spots. Outstanding engineering.',
+        clientName: 'Dr. Aris Thorne',
+        clientRole: 'Private Residence Owner',
+        companyOrLocation: 'Jupiter, FL',
+        rating: 5,
+        verifiedBadge: 'Verified Florida Homeowner',
+        avatarInitials: 'AT',
       },
       {
+        id: 'res-3',
         image: '/hero-pattern.svg',
-        badge: 'Indoor Air Quality',
-        title: 'Hospital-Grade UV & HEPA Filtration',
-        description:
-          'Eliminates 99.9% of airborne mold spores, volatile organic compounds, and Florida pollen directly within your air handler.',
-        specs: ['Airflow Sanitization', 'Continuous Mold Defense', 'Odor Neutralizing']
-      }
+        imageAlt: 'Whole-Home Hospital Grade UV Filtration in Windermere',
+        projectBadge: 'Indoor Air Quality & UV Sanitization | Windermere Estate',
+        projectSpecs: [
+          'Hospital-Grade UV-C Sterilization',
+          'Continuous Mold Defense',
+          'MERV 16 Electrostatic Media',
+        ],
+        quote:
+          'With severe allergies and Florida humidity, indoor air quality was non-negotiable for our family. Above All redesigned our return filtration and integrated whole-home UV sanitization. The air freshness was noticeable within 24 hours of installation.',
+        clientName: 'Elena & David Martinez',
+        clientRole: 'Homeowners',
+        companyOrLocation: 'Windermere, FL',
+        rating: 5,
+        verifiedBadge: 'Verified Florida Homeowner',
+        avatarInitials: 'DM',
+      },
     ],
-    testimonial: {
-      quote:
-        'When our AC gave out on a Saturday afternoon with family visiting, Above All had a technician at our door in 40 minutes. They diagnosed the issue immediately, showed us the broken part, and had cold air blowing before dinner. Honest, polite, and top-tier workmanship.',
-      author: 'Marcus & Sarah Henderson',
-      role: 'Homeowners',
-      location: 'Palm Beach Gardens, FL',
-      initials: 'MH',
-      rating: 5,
-      projectTag: 'Residential Inverter Heat Pump'
-    }
   },
   {
     id: 'commercial',
     label: 'Commercial',
-    icon: <BusinessIcon sx={{ fontSize: '1.2rem', mr: 1 }} />,
+    headline: 'Engineered Rooftops & VRF Zoned Comfort For Florida Business',
+    icon: <BusinessIcon sx={{ fontSize: '1.25rem', mr: 1 }} />,
     slides: [
       {
+        id: 'com-1',
         image: '/commercial-hvac.svg',
-        badge: 'Rooftop Units (RTU)',
-        title: 'Packaged Commercial Rooftop Units (5 – 100+ Tons)',
-        description:
-          'Engineered for retail plazas, medical offices, and restaurants. Features heavy-gauge galvanized cabinets, economizers, and dual-circuit scroll compressors.',
-        specs: ['5 to 100+ Ton Footprints', 'BACnet & BAS Ready', 'Curb Adaptation Available']
+        imageAlt: 'Packaged Commercial Rooftop Units in Boca Raton Retail Plaza',
+        projectBadge: 'Four 25-Ton Packaged RTU Deployment | Boca Raton Plaza',
+        projectSpecs: [
+          '100-Ton Total Zoned Footprint',
+          'BACnet Cloud Automation',
+          'Custom Curb Adaptations',
+        ],
+        quote:
+          'Above All handles four 25-ton rooftop units across our retail facility. Their preventative maintenance contract eliminated the recurring summer compressor trips that plagued us for years. Whenever we need emergency service, they respond in record time.',
+        clientName: 'David Vance',
+        clientRole: 'Director of Property Operations',
+        companyOrLocation: 'Boca Raton Commercial Plaza',
+        rating: 5,
+        verifiedBadge: 'Verified Commercial Contract',
+        avatarInitials: 'DV',
       },
       {
+        id: 'com-2',
         image: '/residential-hvac.svg',
-        badge: 'Multi-Tenant VRF',
-        title: 'Variable Refrigerant Flow (VRF) Systems',
-        description:
-          'Simultaneous heating and cooling across multiple zones with extraordinary energy recovery. Eliminates tenant temperature disputes.',
-        specs: ['Decentralized Metering', 'Up to 300% Heat Recovery', 'Ultra Compact Footprint']
+        imageAlt: 'Multi-Story VRF Heat Recovery System in Fort Lauderdale Medical Pavilion',
+        projectBadge: 'Healthcare VRF Simultaneous Cooling & Heating | Fort Lauderdale',
+        projectSpecs: [
+          'Multi-Tenant Energy Metering',
+          'Simultaneous Heat Recovery',
+          'Ultra-Low Sound Decibel Footprint',
+        ],
+        quote:
+          'In a medical clinic, climate control is critical to patient comfort and sensitive diagnostic equipment calibration. Above All installed our Variable Refrigerant Flow system on time and under budget. Their ongoing mechanical monitoring gives us complete peace of mind.',
+        clientName: 'Patricia Sterling, RN',
+        clientRole: 'Facility Director',
+        companyOrLocation: 'Coastal Specialty Medical Pavilion',
+        rating: 5,
+        verifiedBadge: 'Verified Commercial Contract',
+        avatarInitials: 'PS',
       },
       {
+        id: 'com-3',
         image: '/maintenance-service.svg',
-        badge: 'Controls & BAS',
-        title: 'Building Automation & Remote Monitoring',
-        description:
-          'Cloud-integrated thermostats, airflow dampers, and predictive diagnostic sensors that notify our dispatch desk before tenants notice a temperature rise.',
-        specs: ['24/7 Cloud Telemetry', 'Automated Fault Detection', 'Peak Energy Shaving']
-      }
+        imageAlt: 'Automated Building Controls & Telemetry in Orlando Tech Center',
+        projectBadge: 'Predictive BAS Climate Telemetry | Orlando Tech Center',
+        projectSpecs: [
+          '24/7 Cloud Fault Diagnostics',
+          'Demand-Controlled Ventilation',
+          'Peak Energy Load Optimization',
+        ],
+        quote:
+          'Their automated controls integration allows us to monitor zone performance across 85,000 square feet from a single dashboard. When a chilled water valve seized last August, their dispatch desk had a tech en route before our building temp spiked.',
+        clientName: 'Gregory Chen',
+        clientRole: 'Chief Building Engineer',
+        companyOrLocation: 'Apex Corporate Center',
+        rating: 5,
+        verifiedBadge: 'Verified Commercial Contract',
+        avatarInitials: 'GC',
+      },
     ],
-    testimonial: {
-      quote:
-        'Above All handles four 25-ton rooftop units across our retail facility. Their preventative maintenance contract eliminated the recurring summer compressor trips that plagued us for years. Whenever we need emergency service, they respond in record time.',
-      author: 'David Vance',
-      role: 'Director of Property Operations',
-      location: 'Boca Raton Commercial Plaza',
-      initials: 'DV',
-      rating: 5,
-      projectTag: 'Packaged Rooftop Units & BAS'
-    }
   },
   {
     id: 'industrial',
     label: 'Industrial',
-    icon: <PrecisionManufacturingIcon sx={{ fontSize: '1.2rem', mr: 1 }} />,
+    headline: 'Mission-Critical Chillers, Process Piping & Industrial Loops',
+    icon: <PrecisionManufacturingIcon sx={{ fontSize: '1.25rem', mr: 1 }} />,
     slides: [
       {
+        id: 'ind-1',
         image: '/industrial-mechanical.svg',
-        badge: 'Heavy Chillers',
-        title: 'Water-Cooled Centrifugal & Screw Chillers',
-        description:
-          'Complete overhaul, tube cleaning, eddy-current testing, and refrigerant recovery for manufacturing, cold storage, and mission-critical data facilities.',
-        specs: ['300 to 1,500+ Ton Chillers', 'Vibration Analysis', 'Emergency Chiller Rentals']
+        imageAlt: '600-Ton Centrifugal Industrial Chiller Overhaul in Central Florida',
+        projectBadge: '600-Ton Chiller Loop Rebuild | Manufacturing Hub',
+        projectSpecs: [
+          'Eddy-Current Tube Testing',
+          'Vibration Spectral Analysis',
+          'Zero Factory Downtime Executed',
+        ],
+        quote:
+          'Above All re-engineered our plant’s 600-ton hydronic chiller loop with zero unscheduled downtime to our production floor. The caliber of their mechanical pipe fitters and diagnostic crew is second to none in Florida.',
+        clientName: 'Elena Rostova',
+        clientRole: 'Industrial Plant Operations Manager',
+        companyOrLocation: 'Central Florida Manufacturing Hub',
+        rating: 5,
+        verifiedBadge: 'Verified Industrial Facility',
+        avatarInitials: 'ER',
       },
       {
+        id: 'ind-2',
         image: '/industrial-mechanical.svg',
-        badge: 'Process Piping',
-        title: 'ASME Certified Mechanical & Steam Piping',
-        description:
-          'High-pressure carbon and stainless steel welding for chilled water loops, boiler steam distribution, and chemical cooling processes.',
-        specs: ['ASME B31.1 & B31.3 Compliant', 'Certified Pipe Welders', 'Hydronic Balancing']
+        imageAlt: 'Certified High-Pressure Welded Process Steam Piping in Tampa Facility',
+        projectBadge: 'ASME B31.1 High-Pressure Steam Piping | Tampa Bay',
+        projectSpecs: [
+          'Certified ASME Pipe Welders',
+          'X-Ray Inspected Welds',
+          'Hydronic Loop Balancing',
+        ],
+        quote:
+          'We required certified high-pressure mechanical piping for our process steam lines. Above All delivered flawless welded joints, passed third-party radiographic testing on the first pass, and complied strictly with all OSHA and ASME codes.',
+        clientName: 'Thomas Miller, PE',
+        clientRole: 'Lead Mechanical Systems Engineer',
+        companyOrLocation: 'Tampa Bay Chemical Processing',
+        rating: 5,
+        verifiedBadge: 'Verified Industrial Facility',
+        avatarInitials: 'TM',
       },
       {
+        id: 'ind-3',
         image: '/maintenance-service.svg',
-        badge: 'Cooling Towers & Boilers',
-        title: 'Industrial Cooling Tower Rebuilds & Heat Exchangers',
-        description:
-          'Fill pack replacement, fan drive overhauls, mechanical seal replacements, and condenser water treatment loops for manufacturing reliability.',
-        specs: ['Tower Basin Refurbishment', 'Laser Shaft Alignment', 'Heat Exchanger Descaling']
-      }
+        imageAlt: 'Industrial Cooling Tower Basin & Heat Exchanger Rebuild in Lakeland',
+        projectBadge: 'Cross-Flow Cooling Tower Rebuild | Cold Logistics Hub',
+        projectSpecs: [
+          'Cellular PVC Fill Pack Overhaul',
+          'Laser Shaft Dynamometer Alignment',
+          'Anti-Corrosion Basin Epoxy Lining',
+        ],
+        quote:
+          'During our critical winter shutdown, Above All rebuilt two 1,200-ton induced draft cooling towers in under 72 hours. Their crew operated around the clock with precision safety and professionalism. Highly recommended for heavy industry.',
+        clientName: 'Robert Vance',
+        clientRole: 'Vice President of Industrial Operations',
+        companyOrLocation: 'Lakeland Cold Logistics Facility',
+        rating: 5,
+        verifiedBadge: 'Verified Industrial Facility',
+        avatarInitials: 'RV',
+      },
     ],
-    testimonial: {
-      quote:
-        'Above All re-engineered our plant’s 600-ton hydronic chiller loop with zero unscheduled downtime to our production floor. The caliber of their mechanical pipe fitters and diagnostic crew is second to none in Florida.',
-      author: 'Elena Rostova',
-      role: 'Industrial Plant Operations Manager',
-      location: 'Central Florida Manufacturing Hub',
-      initials: 'ER',
-      rating: 5,
-      projectTag: '600-Ton Industrial Chiller Loop'
-    }
-  }
+  },
 ];
 
 export const SectorsShowcase: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'residential' | 'commercial' | 'industrial'>(
-    'residential'
+    'residential',
   );
   const [slideIndices, setSlideIndices] = useState<Record<string, number>>({
     residential: 0,
     commercial: 0,
-    industrial: 0
+    industrial: 0,
   });
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
   const activeSector = SECTOR_DATA.find(s => s.id === activeTab)!;
   const currentSlideIdx = slideIndices[activeTab] || 0;
-  const currentSlide = activeSector.slides[currentSlideIdx];
 
-  const handlePrev = () => {
+  // Automatic right-to-left scroll interval: advances until user manually interacts
+  useEffect(() => {
+    if (!isAutoScrolling) return;
+
+    const interval = setInterval(() => {
+      setSlideIndices(prev => {
+        const cur = prev[activeTab] || 0;
+        const total = activeSector.slides.length;
+        return { ...prev, [activeTab]: (cur + 1) % total };
+      });
+    }, 5500);
+
+    return () => clearInterval(interval);
+  }, [isAutoScrolling, activeTab, activeSector.slides.length]);
+
+  const handleManualPrev = () => {
+    setIsAutoScrolling(false);
     setSlideIndices(prev => {
       const cur = prev[activeTab] || 0;
       const total = activeSector.slides.length;
@@ -187,7 +276,8 @@ export const SectorsShowcase: React.FC = () => {
     });
   };
 
-  const handleNext = () => {
+  const handleManualNext = () => {
+    setIsAutoScrolling(false);
     setSlideIndices(prev => {
       const cur = prev[activeTab] || 0;
       const total = activeSector.slides.length;
@@ -195,40 +285,52 @@ export const SectorsShowcase: React.FC = () => {
     });
   };
 
-  const setSlide = (idx: number) => {
+  const handleDotClick = (idx: number) => {
+    setIsAutoScrolling(false);
     setSlideIndices(prev => ({ ...prev, [activeTab]: idx }));
   };
 
+  const handleTabChange = (tabId: 'residential' | 'commercial' | 'industrial') => {
+    setActiveTab(tabId);
+    // Maintain or resume smooth auto-scroll when user chooses a new sector
+    setIsAutoScrolling(true);
+  };
+
   return (
-    <section className={styles.sectionRoot} id="sectors-showcase">
-      <Container maxWidth="xl">
+    <section className={styles.sectionRoot} id='sectors-showcase'>
+      <Container maxWidth='xl'>
+        {/* Section Header */}
         <div className={styles.headerWrapper}>
-          <Badge label="COMPLETE SECTOR CAPABILITIES" customTone="orange" sx={{ mb: 1.5 }} />
-          <Heading variant="h2" gradient="blue" gutterBottom>
-            Engineered For Every Environment
+          <Badge
+            label='VERIFIED SECTOR CASE STUDIES &amp; REVIEWS'
+            customTone='orange'
+            sx={{ mb: 1.5 }}
+          />
+          <Heading variant='h2' gradient='blue' gutterBottom>
+            Proven Reliability Across Florida
           </Heading>
-          <Text variant="body1" sx={{ color: 'text.secondary', fontSize: '1.1rem' }}>
-            Explore our specialized solutions, project galleries, and verified client testimonials
-            across residential homes, commercial properties, and heavy industrial facilities.
+          <Text variant='body1' sx={{ color: 'text.secondary', fontSize: '1.1rem' }}>
+            Explore verified customer testimonials and installation showcases across residential
+            homes, commercial business complexes, and heavy industrial facilities.
           </Text>
         </div>
 
-        {/* Tab Selection */}
-        <div className={styles.tabsContainer} role="tablist" aria-label="HVAC Sectors">
+        {/* 3 Sector Tabs at top */}
+        <div className={styles.tabsContainer} role='tablist' aria-label='HVAC Sectors'>
           <div className={styles.tabList}>
             {SECTOR_DATA.map(sector => {
               const isActive = activeTab === sector.id;
               return (
                 <button
                   key={sector.id}
-                  role="tab"
+                  role='tab'
                   aria-selected={isActive}
                   aria-controls={`panel-${sector.id}`}
                   id={`tab-${sector.id}`}
                   className={`${styles.tabButton} ${isActive ? styles.tabButtonActive : ''}`}
-                  onClick={() => setActiveTab(sector.id)}
+                  onClick={() => handleTabChange(sector.id)}
                 >
-                  <span style={{ display: 'inline-flex', alignItems: 'center', height: '100%' }}>
+                  <span className={styles.tabButtonContent}>
                     {sector.icon}
                     {sector.label}
                   </span>
@@ -238,119 +340,166 @@ export const SectorsShowcase: React.FC = () => {
           </div>
         </div>
 
-        {/* Unified Sector Panel */}
+        {/* Carousel Showcase for Selected Tab */}
         <div
-          role="tabpanel"
+          role='tabpanel'
           id={`panel-${activeSector.id}`}
           aria-labelledby={`tab-${activeSector.id}`}
           className={styles.tabPanel}
           key={activeSector.id}
         >
-          <div className={styles.showcaseGrid}>
-            {/* Left: Image & Specs Carousel */}
-            <Card className={styles.carouselCard} accentBorderTop>
-              <div className={styles.carouselMediaWrapper}>
-                <img
-                  src={currentSlide.image}
-                  alt={currentSlide.title}
-                  className={styles.carouselImg}
+          <Card className={styles.testimonialCard} accentBorderTop>
+            {/* Carousel Viewport with Smooth Horizontal Translation */}
+            <div className={styles.carouselViewport}>
+              <div
+                className={styles.carouselTrack}
+                style={{ transform: `translateX(-${currentSlideIdx * 100}%)` }}
+              >
+                {activeSector.slides.map((slide, idx) => {
+                  const isCurrent = idx === currentSlideIdx;
+                  return (
+                    <div key={slide.id} className={styles.slideItem} aria-hidden={!isCurrent}>
+                      {/* TOP SECTION: Project Installation Image */}
+                      <div className={styles.slideImageWrapper}>
+                        <img
+                          src={slide.image}
+                          alt={slide.imageAlt}
+                          className={styles.slideImage}
+                          loading='lazy'
+                        />
+                        <div className={styles.imageOverlay} />
+
+                        {/* Top Badges Overlay */}
+                        <div className={styles.topBadgesRow}>
+                          <Badge label={slide.projectBadge} customTone='orange' />
+                          <div className={styles.verifiedChip}>
+                            <VerifiedUserIcon
+                              sx={{ fontSize: '1rem', mr: 0.75, color: '#38BDF8' }}
+                            />
+                            <span>{slide.verifiedBadge}</span>
+                          </div>
+                        </div>
+
+                        {/* Floating Hardware Specs along bottom of Image */}
+                        <div className={styles.specsRow}>
+                          {slide.projectSpecs.map((spec, sIdx) => (
+                            <div key={sIdx} className={styles.specGlassPill}>
+                              {spec}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Manual Navigation Controls (Chevron Icon Buttons) */}
+                        <div className={styles.navOverlay}>
+                          <IconButton
+                            aria-label='Previous testimonial'
+                            onClick={handleManualPrev}
+                            className={styles.navIconBtn}
+                            size='medium'
+                          >
+                            <ChevronLeftIcon fontSize='inherit' />
+                          </IconButton>
+                          <IconButton
+                            aria-label='Next testimonial'
+                            onClick={handleManualNext}
+                            className={styles.navIconBtn}
+                            size='medium'
+                          >
+                            <ChevronRightIcon fontSize='inherit' />
+                          </IconButton>
+                        </div>
+                      </div>
+
+                      {/* BOTTOM SECTION: Customer Testimonial Content */}
+                      <div className={styles.slideTestimonialContent}>
+                        {/* Rating and Quote Accent */}
+                        <div className={styles.ratingAndQuoteRow}>
+                          <div
+                            className={styles.starRow}
+                            aria-label='5 out of 5 stars verified rating'
+                          >
+                            {[...Array(slide.rating)].map((_, starIdx) => (
+                              <StarIcon
+                                key={starIdx}
+                                sx={{ color: '#F59E0B', fontSize: '1.35rem' }}
+                              />
+                            ))}
+                            <span className={styles.ratingLabel}>5.0 Verified Review</span>
+                          </div>
+                          <FormatQuoteIcon className={styles.quoteWatermark} aria-hidden='true' />
+                        </div>
+
+                        {/* Testimonial Quote */}
+                        <p className={styles.quoteText}>&ldquo;{slide.quote}&rdquo;</p>
+
+                        {/* Client Identity & Scope Bar */}
+                        <div className={styles.clientProfileBar}>
+                          <div className={styles.avatarMonogram}>{slide.avatarInitials}</div>
+                          <Box sx={{ flexGrow: 1 }}>
+                            <Text variant='subtitle1' sx={{ fontWeight: 800, lineHeight: 1.3 }}>
+                              {slide.clientName}
+                            </Text>
+                            <Text
+                              variant='body2'
+                              sx={{ color: 'text.secondary', fontSize: '0.88rem' }}
+                            >
+                              {slide.clientRole} &bull; {slide.companyOrLocation}
+                            </Text>
+                          </Box>
+
+                          <Button
+                            component={Link}
+                            to='/contact'
+                            customVariant='primary-orange'
+                            size='medium'
+                            endIcon={<ArrowForwardIcon />}
+                          >
+                            Schedule {activeSector.label} Estimate
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Bottom Carousel Controller: Auto-Scroll Indicator & Pagination Dots */}
+            <div className={styles.carouselControllerBar}>
+              <div className={styles.scrollStatusIndicator}>
+                <span
+                  className={`${styles.statusDot} ${isAutoScrolling ? styles.statusDotActive : styles.statusDotPaused}`}
                 />
-
-                {/* Next/Prev Navigation Buttons */}
-                <div className={styles.carouselNavOverlay}>
-                  <IconButton
-                    aria-label="Previous slide"
-                    onClick={handlePrev}
-                    className={styles.navArrowBtn}
-                    size="small"
-                  >
-                    <ChevronLeftIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Next slide"
-                    onClick={handleNext}
-                    className={styles.navArrowBtn}
-                    size="small"
-                  >
-                    <ChevronRightIcon />
-                  </IconButton>
-                </div>
+                <span className={styles.statusText}>
+                  {isAutoScrolling ? 'Auto-Scrolling (Right to Left)' : 'Manual Navigation Active'}
+                </span>
               </div>
 
-              <div className={styles.carouselCaption}>
-                <Box sx={{ mb: 1 }}>
-                  <Badge label={currentSlide.badge} customTone="cyan" />
-                </Box>
-
-                <Heading variant="h5" gutterBottom>
-                  {currentSlide.title}
-                </Heading>
-
-                <Text variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6, mb: 2 }}>
-                  {currentSlide.description}
-                </Text>
-
-                <div className={styles.highlightPills}>
-                  {currentSlide.specs.map((spec, i) => (
-                    <Badge key={i} label={spec} customTone="certified" />
-                  ))}
-                </div>
-
-                {/* Dot Indicators */}
-                <div className={styles.dotsRow} role="tablist" aria-label="Slide indicators">
-                  {activeSector.slides.map((_, idx) => (
-                    <button
-                      key={idx}
-                      role="tab"
-                      className={`${styles.dot} ${idx === currentSlideIdx ? styles.dotActive : ''}`}
-                      onClick={() => setSlide(idx)}
-                      aria-label={`Go to slide ${idx + 1}`}
-                      aria-selected={idx === currentSlideIdx}
-                    />
-                  ))}
-                </div>
-              </div>
-            </Card>
-
-            {/* Right: Sector Specific Testimonial */}
-            <Card className={styles.testimonialSideCard} accentBorderTop>
-              <Box sx={{ mb: 2 }}>
-                <Badge label={activeSector.testimonial.projectTag} customTone="orange" />
-              </Box>
-
-              <div className={styles.starGroup} aria-label="5 out of 5 stars rating">
-                {[...Array(activeSector.testimonial.rating)].map((_, i) => (
-                  <StarIcon key={i} fontSize="small" />
+              {/* Dot Indicators */}
+              <div
+                className={styles.dotsRow}
+                role='tablist'
+                aria-label='Testimonial slide navigation'
+              >
+                {activeSector.slides.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    role='tab'
+                    className={`${styles.dot} ${dotIdx === currentSlideIdx ? styles.dotActive : ''}`}
+                    onClick={() => handleDotClick(dotIdx)}
+                    aria-label={`Go to slide ${dotIdx + 1}`}
+                    aria-selected={dotIdx === currentSlideIdx}
+                  />
                 ))}
               </div>
 
-              <p className={styles.quoteBlock}>&ldquo;{activeSector.testimonial.quote}&rdquo;</p>
-
-              <div className={styles.clientDetails}>
-                <div className={styles.avatarCircle}>{activeSector.testimonial.initials}</div>
-                <Box>
-                  <Text variant="subtitle2" sx={{ fontWeight: 800 }}>
-                    {activeSector.testimonial.author}
-                  </Text>
-                  <Text variant="caption" sx={{ color: 'text.secondary', display: 'block' }}>
-                    {activeSector.testimonial.role} &bull; {activeSector.testimonial.location}
-                  </Text>
-                </Box>
+              <div className={styles.slideCounter}>
+                <span>0{currentSlideIdx + 1}</span>
+                <span className={styles.counterDivider}>/</span>
+                <span>0{activeSector.slides.length}</span>
               </div>
-
-              <Box sx={{ mt: 3, pt: 2, borderTop: '1px solid rgba(14, 45, 84, 0.08)' }}>
-                <Button
-                  component={Link}
-                  to="/contact"
-                  customVariant="primary-orange"
-                  fullWidth
-                  endIcon={<ArrowForwardIcon />}
-                >
-                  Schedule {activeSector.label} Estimate
-                </Button>
-              </Box>
-            </Card>
-          </div>
+            </div>
+          </Card>
         </div>
       </Container>
     </section>
