@@ -1,0 +1,8 @@
+.selectRoot {
+  width: 100%;
+  margin-bottom: 1rem !important;
+}
+
+.selectRoot :global(.MuiOutlinedInput-root) {
+  border-radius: 12px;
+}

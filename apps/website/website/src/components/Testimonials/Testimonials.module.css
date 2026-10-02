@@ -1,0 +1,73 @@
+.sectionRoot {
+  padding: 5.5rem 0;
+}
+
+.headerWrapper {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+}
+
+.testimonialGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 960px) {
+  .testimonialGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardRoot {
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.starRow {
+  display: flex;
+  gap: 4px;
+  color: #F59E0B;
+  margin-bottom: 1.25rem;
+}
+
+.quoteText {
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #334155;
+  margin-bottom: 1.75rem;
+  flex-grow: 1;
+}
+
+:global(.dark) .quoteText {
+  color: #CBD5E1;
+}
+
+.clientMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(14, 45, 84, 0.08);
+}
+
+:global(.dark) .clientMeta {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.clientAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #0E2D54;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}

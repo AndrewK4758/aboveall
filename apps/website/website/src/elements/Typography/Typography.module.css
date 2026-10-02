@@ -1,0 +1,28 @@
+.headingGradient {
+  background: linear-gradient(135deg, #0E2D54 0%, #00A3E0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(.dark) .headingGradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.headingWarm {
+  background: linear-gradient(135deg, #EA580C 0%, #FF7A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  color: #64748B;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+:global(.dark) .tagline {
+  color: #94A3B8;
+}

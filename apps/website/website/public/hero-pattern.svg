@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="curve1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00A3E0" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#38B6FF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0E2D54" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="curve2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF7A00" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#EA580C" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0E2D54" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M0,280 C360,180 720,440 1080,240 C1260,140 1380,200 1440,220 L1440,600 L0,600 Z" fill="url(#curve1)"/>
+  <path d="M0,380 C320,480 680,220 1020,380 C1220,470 1360,340 1440,300 L1440,600 L0,600 Z" fill="url(#curve2)"/>
+  
+  <!-- Subtle turbine flow rays -->
+  <g stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1.5">
+    <line x1="720" y1="300" x2="1440" y2="0"/>
+    <line x1="720" y1="300" x2="1440" y2="150"/>
+    <line x1="720" y1="300" x2="1440" y2="300"/>
+    <line x1="720" y1="300" x2="1440" y2="450"/>
+    <line x1="720" y1="300" x2="1440" y2="600"/>
+  </g>
+</svg>

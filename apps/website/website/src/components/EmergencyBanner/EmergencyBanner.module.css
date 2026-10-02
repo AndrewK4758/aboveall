@@ -1,0 +1,47 @@
+.bannerRoot {
+  background: linear-gradient(90deg, #991B1B 0%, #EA580C 50%, #0E2D54 100%);
+  color: #FFFFFF;
+  padding: 12px 1rem;
+}
+
+.bannerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .bannerContent {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.messageGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.phoneCta {
+  background: #FFFFFF;
+  color: #991B1B;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.phoneCta:hover {
+  background: #FEE2E2;
+  transform: scale(1.04);
+}

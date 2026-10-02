@@ -1,0 +1,24 @@
+.emblemContainer {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 10px 24px rgba(14, 45, 84, 0.2));
+}
+
+.emblemContainer:hover {
+  transform: scale(1.05) rotate(1deg);
+}
+
+.animatedTurbine:hover :global(.turbine-blades) {
+  animation: spinBlades 8s linear infinite;
+  transform-origin: 200px 200px;
+}
+
+@keyframes spinBlades {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

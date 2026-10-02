@@ -1,0 +1,249 @@
+.sectionRoot {
+  padding: 5.5rem 0;
+  background: radial-gradient(circle at 10% 20%, rgba(14, 45, 84, 0.03) 0%, transparent 60%),
+              radial-gradient(circle at 90% 80%, rgba(234, 88, 12, 0.04) 0%, transparent 60%);
+}
+
+.headerWrapper {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+.tabsContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.tabList {
+  display: inline-flex;
+  padding: 6px;
+  background: #F1F5F9;
+  border-radius: 9999px;
+  border: 1px solid #CBD5E1;
+  gap: 8px;
+}
+
+:global(.dark) .tabList {
+  background: #0E223D;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.tabButton {
+  padding: 10px 28px !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  border-radius: 9999px !important;
+  color: #334155 !important;
+  transition: all 0.25s ease !important;
+  border: none !important;
+}
+
+:global(.dark) .tabButton {
+  color: #CBD5E1 !important;
+}
+
+.tabButtonActive {
+  background: #0E2D54 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(14, 45, 84, 0.35) !important;
+}
+
+:global(.dark) .tabButtonActive {
+  background: #0284C7 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45) !important;
+}
+
+.tabPanel {
+  animation: fadeInTab 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInTab {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.showcaseGrid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .showcaseGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Carousel Styling */
+.carouselCard {
+  position: relative;
+  border-radius: 20px !important;
+  overflow: hidden;
+  background: #FFFFFF !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+:global(.dark) .carouselCard {
+  background: #0E223D !important;
+}
+
+.carouselMediaWrapper {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+  background: #07182E;
+}
+
+@media (max-width: 640px) {
+  .carouselMediaWrapper {
+    height: 240px;
+  }
+}
+
+.carouselImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carouselCard:hover .carouselImg {
+  transform: scale(1.03);
+}
+
+.carouselNavOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.navArrowBtn {
+  pointer-events: auto;
+  background: rgba(14, 45, 84, 0.75) !important;
+  color: #FFFFFF !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+.navArrowBtn:hover {
+  background: #0E2D54 !important;
+  transform: scale(1.1);
+}
+
+.carouselCaption {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.dotsRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #CBD5E1;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+:global(.dark) .dot {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dotActive {
+  width: 28px;
+  background: #C2410C;
+}
+
+/* Testimonial Box alongside Carousel */
+.testimonialSideCard {
+  border-radius: 20px !important;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF !important;
+  height: 100%;
+}
+
+:global(.dark) .testimonialSideCard {
+  background: #0E223D !important;
+}
+
+.starGroup {
+  display: flex;
+  gap: 4px;
+  color: #F59E0B;
+  margin-bottom: 1.25rem;
+}
+
+.quoteBlock {
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #1E293B;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+:global(.dark) .quoteBlock {
+  color: #E2E8F0;
+}
+
+.clientDetails {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(14, 45, 84, 0.08);
+}
+
+:global(.dark) .clientDetails {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.avatarCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0E2D54;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.highlightPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 1.5rem 0 0;
+}

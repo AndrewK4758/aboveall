@@ -1,12 +1,16 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.css';
+import React, { useMemo } from 'react';
+import { RouterProvider } from 'react-router';
 
+import { createAppRouter } from '../router/router';
+import { AppThemeProvider } from '../theme/ThemeContext';
 
 export function App() {
-  return (
-    <div>
+  const router = useMemo(() => createAppRouter(), []);
 
-    </div>
+  return (
+    <AppThemeProvider>
+      <RouterProvider router={router} />
+    </AppThemeProvider>
   );
 }
 

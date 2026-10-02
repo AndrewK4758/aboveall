@@ -1,0 +1,110 @@
+.formWrapper {
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: #FFFFFF;
+  border: 1px solid rgba(14, 45, 84, 0.08);
+  box-shadow: 0 12px 32px -4px rgba(14, 45, 84, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+:global(.dark) .formWrapper {
+  background: #0E223D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.5);
+}
+
+.formHeader {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.emergencyBanner {
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #991B1B;
+}
+
+:global(.dark) .emergencyBanner {
+  background: rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.35);
+  color: #FCA5A5;
+}
+
+.grid2Col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 680px) {
+  .grid2Col {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .formWrapper {
+    padding: 1.5rem;
+  }
+}
+
+.checkboxRow {
+  margin: 0.5rem 0 1.5rem;
+  padding: 10px 14px;
+  background: rgba(234, 88, 12, 0.06);
+  border-radius: 10px;
+  border: 1px dashed rgba(234, 88, 12, 0.3);
+}
+
+.successCard {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border-radius: 20px;
+  background: #FFFFFF;
+}
+
+:global(.dark) .successCard {
+  background: #0E223D;
+}
+
+.successIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #DCFCE7;
+  color: #16A34A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2.5rem;
+}
+
+:global(.dark) .successIcon {
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ADE80;
+}
+
+.emailDestinationPill {
+  display: inline-block;
+  background: #F1F5F9;
+  color: #0E2D54;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.95rem;
+  border: 1px solid #CBD5E1;
+}
+
+:global(.dark) .emailDestinationPill {
+  background: #1E293B;
+  color: #38BDF8;
+  border-color: rgba(255, 255, 255, 0.1);
+}

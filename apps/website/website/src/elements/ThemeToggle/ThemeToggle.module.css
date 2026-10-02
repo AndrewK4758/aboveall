@@ -1,0 +1,19 @@
+.toggleButton {
+  border: 1px solid rgba(14, 45, 84, 0.15) !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+:global(.dark) .toggleButton {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.toggleButton:hover {
+  background: rgba(14, 45, 84, 0.08) !important;
+  transform: rotate(15deg);
+}
+
+:global(.dark) .toggleButton:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}

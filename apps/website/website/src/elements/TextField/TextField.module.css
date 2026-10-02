@@ -1,0 +1,21 @@
+.textFieldRoot {
+  width: 100%;
+  margin-bottom: 1rem !important;
+}
+
+.textFieldRoot :global(.MuiInputLabel-root) {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.textFieldRoot :global(.MuiOutlinedInput-root) {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.textFieldRoot :global(.MuiOutlinedInput-root.Mui-focused) {
+  box-shadow: 0 0 0 3px rgba(14, 45, 84, 0.12);
+}
+
+:global(.dark) .textFieldRoot :global(.MuiOutlinedInput-root.Mui-focused) {
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}

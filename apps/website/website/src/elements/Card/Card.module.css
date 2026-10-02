@@ -1,0 +1,32 @@
+.cardRoot {
+  border-radius: 16px !important;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.hoverLift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px -8px rgba(14, 45, 84, 0.16) !important;
+}
+
+.glass {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+:global(.dark) .glass {
+  background: rgba(14, 34, 61, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.accentBorderTop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00A3E0, #FF7A00);
+}

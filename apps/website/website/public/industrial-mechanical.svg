@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="indGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05101F"/>
+      <stop offset="60%" stop-color="#0E2D54"/>
+      <stop offset="100%" stop-color="#1B2A4A"/>
+    </linearGradient>
+    <linearGradient id="pipeOrange" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A00"/>
+      <stop offset="50%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#9A3412"/>
+    </linearGradient>
+    <linearGradient id="pipeBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38B6FF"/>
+      <stop offset="50%" stop-color="#0080FF"/>
+      <stop offset="100%" stop-color="#004D99"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#indGrad)"/>
+
+  <!-- Complex Industrial Mechanical Pipe Network -->
+  <!-- Blue Hydronic Chilled Water Loop -->
+  <path d="M-20,380 L280,380 L280,210 L520,210 L520,340 L820,340" fill="none" stroke="url(#pipeBlue)" stroke-width="26" stroke-linejoin="round"/>
+  <!-- Pipe Flanges -->
+  <g fill="#94A3B8">
+    <rect x="268" y="270" width="24" height="12" rx="2"/>
+    <rect x="508" y="270" width="24" height="12" rx="2"/>
+    <rect x="120" y="368" width="12" height="24" rx="2"/>
+    <rect x="680" y="328" width="12" height="24" rx="2"/>
+  </g>
+
+  <!-- Orange High-Temp Steam / Condenser Loop -->
+  <path d="M-20,440 L220,440 L220,290 L460,290 L460,420 L820,420" fill="none" stroke="url(#pipeOrange)" stroke-width="20" stroke-linejoin="round"/>
+
+  <!-- Heavy Centrifugal Chiller / Compressor Vessel -->
+  <g transform="translate(300, 100)">
+    <!-- Main Cylinder Vessel -->
+    <rect x="0" y="20" width="240" height="130" rx="40" fill="#334155" stroke="#94A3B8" stroke-width="4"/>
+    <rect x="25" y="40" width="190" height="90" rx="20" fill="#1E293B"/>
+
+    <!-- Pressure Gauges -->
+    <circle cx="60" cy="5" r="18" fill="#F8FAFC" stroke="#0F172A" stroke-width="3"/>
+    <line x1="60" y1="5" x2="68" y2="-3" stroke="#EA580C" stroke-width="2"/>
+    <line x1="60" y1="23" x2="60" y2="40" stroke="#94A3B8" stroke-width="4"/>
+
+    <circle cx="180" cy="5" r="18" fill="#F8FAFC" stroke="#0F172A" stroke-width="3"/>
+    <line x1="180" y1="5" x2="172" y2="-4" stroke="#0284C7" stroke-width="2"/>
+    <line x1="180" y1="23" x2="180" y2="40" stroke="#94A3B8" stroke-width="4"/>
+
+    <!-- Mechanical Gear Hub (Echoing Logo Turbine) -->
+    <circle cx="120" cy="85" r="32" fill="#0E2D54" stroke="#38B6FF" stroke-width="3"/>
+    <circle cx="120" cy="85" r="14" fill="#E2E8F0"/>
+  </g>
+
+  <!-- Badge -->
+  <g transform="translate(60, 60)">
+    <rect width="310" height="74" rx="14" fill="#0E2D54" fill-opacity="0.95" stroke="#38B6FF" stroke-width="1.5"/>
+    <text x="24" y="32" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="16" font-weight="800">INDUSTRIAL &amp; MECHANICAL</text>
+    <text x="24" y="55" fill="#38B6FF" font-family="system-ui, sans-serif" font-size="13" font-weight="500">Chillers, Boilers, Hydronics &amp; Piping</text>
+  </g>
+</svg>

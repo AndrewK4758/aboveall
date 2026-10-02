@@ -1,0 +1,64 @@
+.buttonRoot {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.buttonRoot:focus-visible {
+  outline: 3px solid #0284C7 !important;
+  outline-offset: 3px !important;
+}
+
+.variantOrange {
+  background: linear-gradient(135deg, #C2410C 0%, #EA580C 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(194, 65, 12, 0.35) !important;
+}
+
+.variantOrange:hover {
+  background: linear-gradient(135deg, #9A3412 0%, #C2410C 100%) !important;
+  box-shadow: 0 8px 24px rgba(194, 65, 12, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.variantNavy {
+  background: linear-gradient(135deg, #0E2D54 0%, #1B457D 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(14, 45, 84, 0.3) !important;
+}
+
+.variantNavy:hover {
+  background: linear-gradient(135deg, #07182E 0%, #0E2D54 100%) !important;
+  box-shadow: 0 8px 24px rgba(14, 45, 84, 0.45) !important;
+  transform: translateY(-2px);
+}
+
+.variantOutline {
+  border: 2px solid currentColor !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+}
+
+.variantOutline:hover {
+  background: rgba(14, 45, 84, 0.08) !important;
+  transform: translateY(-1px);
+}
+
+:global(.dark) .variantOutline:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.glow {
+  animation: glowPulse 2.8s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(194, 65, 12, 0.35);
+  }
+  50% {
+    box-shadow: 0 8px 28px rgba(194, 65, 12, 0.65);
+  }
+}
