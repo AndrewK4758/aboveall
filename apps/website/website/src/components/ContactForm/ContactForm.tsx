@@ -3,7 +3,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import SendIcon from '@mui/icons-material/Send';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -134,7 +133,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   const [isEmergency, setIsEmergency] = useState(false);
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [generalError, setGeneralError] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<FormTouched>({});
@@ -176,7 +175,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setGeneralError(null);
+    setStatusMessage(null);
 
     const nameErr = validateFullName(fullName);
     const phoneErr = validatePhone(phone);
@@ -206,9 +205,17 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
     const hasErrors = Object.values(newErrors).some(Boolean);
     if (hasErrors) {
-      setGeneralError(
-        'Please check the highlighted fields below and provide the required information.',
-      );
+      setStatusMessage('Please correct the highlighted fields with required information.');
+      // Focus first invalid element for immediate keyboard/screen-reader accessibility
+      if (nameErr) {
+        (document.querySelector('input[name="fullName"]') as HTMLElement)?.focus();
+      } else if (phoneErr) {
+        (document.querySelector('input[name="phone"]') as HTMLElement)?.focus();
+      } else if (emailErr) {
+        (document.querySelector('input[name="email"]') as HTMLElement)?.focus();
+      } else if (messageErr) {
+        (document.querySelector('textarea[name="message"]') as HTMLElement)?.focus();
+      }
       return;
     }
 
@@ -255,7 +262,7 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
     setServiceType(defaultService);
     setErrors({});
     setTouched({});
-    setGeneralError(null);
+    setStatusMessage(null);
   };
 
   if (submitted) {
@@ -333,10 +340,10 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
         </div>
       )}
 
-      {generalError && (
-        <Alert severity='error' sx={{ mb: 2, borderRadius: 2 }}>
-          {generalError}
-        </Alert>
+      {statusMessage && (
+        <output aria-live='polite' className={styles.srOnly}>
+          {statusMessage}
+        </output>
       )}
 
       <form onSubmit={handleSubmit} noValidate>

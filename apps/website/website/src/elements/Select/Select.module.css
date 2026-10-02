@@ -1,8 +1,30 @@
 .selectRoot {
   width: 100%;
-  margin-bottom: 1rem !important;
+  position: relative;
+  margin-bottom: 2rem !important;
 }
 
 .selectRoot :global(.MuiOutlinedInput-root) {
   border-radius: 12px;
+}
+
+/* Zero layout shift: helper text and error messages are positioned absolutely so they never push adjacent elements */
+.selectRoot :global(.MuiFormHelperText-root) {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 4px 2px 0 2px !important;
+  font-size: 0.8rem !important;
+  line-height: 1.25 !important;
+  pointer-events: none;
+}
+
+.selectRoot :global(.MuiFormHelperText-root.Mui-error) {
+  font-weight: 600;
+  color: #B91C1C;
+}
+
+:global(.dark) .selectRoot :global(.MuiFormHelperText-root.Mui-error) {
+  color: #F87171;
 }
