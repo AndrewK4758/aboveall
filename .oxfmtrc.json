@@ -1,0 +1,32 @@
+{
+  "ignorePatterns": [
+    "/dist",
+    "/coverage",
+    "/.nx/cache",
+    "/.nx/workspace-data",
+    ".nx/self-healing",
+    "node_modules/",
+    "build/",
+    "out/",
+    ".idea/",
+    ".vscode/",
+    "*/public/",
+    "*md",
+    "*.yaml",
+    "*.yml",
+    "*.toml",
+    "*.html",
+    "build/",
+    "out/",
+    "*",
+    "!*/",
+    "!*.ts",
+    "!*.tsx"
+  ],
+  "singleQuote": true,
+  "sortImports": true,
+  "sortPackageJson": true,
+  "arrowParens": "avoid",
+  "jsdoc": true,
+  "jsxSingleQuote": true
+}
