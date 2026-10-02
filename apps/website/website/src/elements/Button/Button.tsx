@@ -6,6 +6,9 @@ import styles from './Button.module.css';
 export interface ButtonProps extends Omit<MuiButtonProps, 'variant'> {
   customVariant?: 'primary-orange' | 'primary-navy' | 'outline' | 'ghost';
   glow?: boolean;
+  component?: React.ElementType;
+  to?: string;
+  [key: string]: unknown;
 }
 
 export const Button: React.FC<ButtonProps> = ({

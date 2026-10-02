@@ -55,6 +55,12 @@ export function createAppTheme(mode: ColorMode): Theme {
         light: BRAND_COLORS.cyan.light,
         dark: BRAND_COLORS.cyan.dark,
       },
+      error: {
+        main: isLight ? '#B91C1C' : '#F87171',
+        light: '#EF4444',
+        dark: '#991B1B',
+        contrastText: '#FFFFFF',
+      },
       background: {
         default: isLight ? '#F8FAFC' : '#071324',
         paper: isLight ? '#FFFFFF' : '#0E223D',
@@ -103,6 +109,29 @@ export function createAppTheme(mode: ColorMode): Theme {
     },
     components: {
       MuiButton: {
+        variants: [
+          {
+            props: { variant: 'contained', color: 'primary' },
+            style: {
+              backgroundColor: isLight ? BRAND_COLORS.navy.main : '#0284C7',
+              color: '#FFFFFF',
+              '&:hover': {
+                backgroundColor: isLight ? BRAND_COLORS.navy.light : '#0369A1',
+              },
+            },
+          },
+          {
+            props: { variant: 'contained', color: 'secondary' },
+            style: {
+              backgroundColor: isLight ? BRAND_COLORS.orange.main : '#FB923C',
+              color: isLight ? '#FFFFFF' : '#071324',
+              '&:hover': {
+                backgroundColor: isLight ? BRAND_COLORS.orange.dark : '#F97316',
+                boxShadow: '0 8px 20px -4px rgba(194, 65, 12, 0.45)',
+              },
+            },
+          },
+        ],
         styleOverrides: {
           root: {
             borderRadius: 12,
@@ -120,21 +149,6 @@ export function createAppTheme(mode: ColorMode): Theme {
             },
             '&:active': {
               transform: 'translateY(0)',
-            },
-          },
-          containedPrimary: {
-            backgroundColor: isLight ? BRAND_COLORS.navy.main : '#0284C7',
-            color: '#FFFFFF',
-            '&:hover': {
-              backgroundColor: isLight ? BRAND_COLORS.navy.light : '#0369A1',
-            },
-          },
-          containedSecondary: {
-            backgroundColor: isLight ? BRAND_COLORS.orange.main : '#FB923C',
-            color: isLight ? '#FFFFFF' : '#071324',
-            '&:hover': {
-              backgroundColor: isLight ? BRAND_COLORS.orange.dark : '#F97316',
-              boxShadow: '0 8px 20px -4px rgba(194, 65, 12, 0.45)',
             },
           },
         },

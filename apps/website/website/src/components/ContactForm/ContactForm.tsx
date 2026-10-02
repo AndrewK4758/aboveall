@@ -22,6 +22,84 @@ export interface ContactFormProps {
   className?: string;
 }
 
+export interface FormErrors {
+  fullName?: string;
+  phone?: string;
+  email?: string;
+  propertyType?: string;
+  serviceType?: string;
+  message?: string;
+}
+
+export interface FormTouched {
+  fullName?: boolean;
+  phone?: boolean;
+  email?: boolean;
+  propertyType?: boolean;
+  serviceType?: boolean;
+  message?: boolean;
+}
+
+export const validateFullName = (val: string): string | undefined => {
+  const trimmed = val.trim();
+  if (!trimmed) {
+    return 'Full name or company name is required (at least 2 characters).';
+  }
+  if (trimmed.length < 2) {
+    return 'Full name or company name must be at least 2 characters.';
+  }
+  return undefined;
+};
+
+export const validatePhone = (val: string): string | undefined => {
+  const trimmed = val.trim();
+  if (!trimmed) {
+    return 'Please enter a valid phone number (at least 10 digits).';
+  }
+  const digits = trimmed.replace(/\D/g, '');
+  if (digits.length < 10) {
+    return 'Please enter a valid phone number (at least 10 digits).';
+  }
+  return undefined;
+};
+
+export const validateEmail = (val: string): string | undefined => {
+  const trimmed = val.trim();
+  if (!trimmed) {
+    return 'Please enter a valid email address (e.g. name@domain.com).';
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(trimmed)) {
+    return 'Please enter a valid email address (e.g. name@domain.com).';
+  }
+  return undefined;
+};
+
+export const validateMessage = (val: string): string | undefined => {
+  const trimmed = val.trim();
+  if (!trimmed) {
+    return 'Please provide project details (at least 10 characters).';
+  }
+  if (trimmed.length < 10) {
+    return 'Please provide project details (at least 10 characters).';
+  }
+  return undefined;
+};
+
+export const validatePropertyType = (val: string): string | undefined => {
+  if (!val || !val.trim()) {
+    return 'Please select a property or facility type.';
+  }
+  return undefined;
+};
+
+export const validateServiceType = (val: string): string | undefined => {
+  if (!val || !val.trim()) {
+    return 'Please select the service required.';
+  }
+  return undefined;
+};
+
 const PROPERTY_OPTIONS = [
   { label: 'Residential Home / Condo', value: 'Residential' },
   { label: 'Commercial Office / Retail', value: 'Commercial' },
@@ -56,14 +134,81 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   const [isEmergency, setIsEmergency] = useState(false);
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [generalError, setGeneralError] = useState<string | null>(null);
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<FormTouched>({});
+
+  const handleBlur = (field: keyof FormTouched) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    let err: string | undefined;
+    if (field === 'fullName') err = validateFullName(fullName);
+    else if (field === 'phone') err = validatePhone(phone);
+    else if (field === 'email') err = validateEmail(email);
+    else if (field === 'message') err = validateMessage(message);
+    else if (field === 'propertyType') err = validatePropertyType(propertyType);
+    else if (field === 'serviceType') err = validateServiceType(serviceType);
+
+    setErrors(prev => ({ ...prev, [field]: err }));
+  };
+
+  const handleFieldChange = (field: keyof FormTouched, value: string) => {
+    if (field === 'fullName') setFullName(value);
+    else if (field === 'phone') setPhone(value);
+    else if (field === 'email') setEmail(value);
+    else if (field === 'message') setMessage(value);
+    else if (field === 'propertyType') setPropertyType(value);
+    else if (field === 'serviceType') setServiceType(value);
+
+    // If field was already touched, revalidate dynamically
+    if (touched[field]) {
+      let err: string | undefined;
+      if (field === 'fullName') err = validateFullName(value);
+      else if (field === 'phone') err = validatePhone(value);
+      else if (field === 'email') err = validateEmail(value);
+      else if (field === 'message') err = validateMessage(value);
+      else if (field === 'propertyType') err = validatePropertyType(value);
+      else if (field === 'serviceType') err = validateServiceType(value);
+
+      setErrors(prev => ({ ...prev, [field]: err }));
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setGeneralError(null);
 
-    if (!fullName.trim() || !email.trim() || !phone.trim() || !message.trim()) {
-      setError('Please fill in all required fields (Name, Email, Phone, and Details).');
+    const nameErr = validateFullName(fullName);
+    const phoneErr = validatePhone(phone);
+    const emailErr = validateEmail(email);
+    const messageErr = validateMessage(message);
+    const propErr = validatePropertyType(propertyType);
+    const svcErr = validateServiceType(serviceType);
+
+    const newErrors: FormErrors = {
+      fullName: nameErr,
+      phone: phoneErr,
+      email: emailErr,
+      message: messageErr,
+      propertyType: propErr,
+      serviceType: svcErr,
+    };
+
+    setErrors(newErrors);
+    setTouched({
+      fullName: true,
+      phone: true,
+      email: true,
+      message: true,
+      propertyType: true,
+      serviceType: true,
+    });
+
+    const hasErrors = Object.values(newErrors).some(Boolean);
+    if (hasErrors) {
+      setGeneralError(
+        'Please check the highlighted fields below and provide the required information.',
+      );
       return;
     }
 
@@ -101,8 +246,16 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
 
   const handleReset = () => {
     setSubmitted(false);
+    setFullName('');
+    setPhone('');
+    setEmail('');
     setMessage('');
-    setError(null);
+    setIsEmergency(false);
+    setPropertyType(defaultPropertyType);
+    setServiceType(defaultService);
+    setErrors({});
+    setTouched({});
+    setGeneralError(null);
   };
 
   if (submitted) {
@@ -180,9 +333,9 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
         </div>
       )}
 
-      {error && (
+      {generalError && (
         <Alert severity='error' sx={{ mb: 2, borderRadius: 2 }}>
-          {error}
+          {generalError}
         </Alert>
       )}
 
@@ -193,7 +346,10 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
             name='fullName'
             required
             value={fullName}
-            onChange={e => setFullName(e.target.value)}
+            error={Boolean(touched.fullName && errors.fullName)}
+            helperText={touched.fullName ? errors.fullName : undefined}
+            onBlur={() => handleBlur('fullName')}
+            onChange={e => handleFieldChange('fullName', e.target.value)}
             placeholder='John Doe or Acme Industrial'
           />
 
@@ -203,7 +359,10 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
             type='tel'
             required
             value={phone}
-            onChange={e => setPhone(e.target.value)}
+            error={Boolean(touched.phone && errors.phone)}
+            helperText={touched.phone ? errors.phone : undefined}
+            onBlur={() => handleBlur('phone')}
+            onChange={e => handleFieldChange('phone', e.target.value)}
             placeholder='(561) 555-0199'
           />
         </div>
@@ -215,9 +374,15 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
             type='email'
             required
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            error={Boolean(touched.email && errors.email)}
+            helperText={
+              touched.email && errors.email
+                ? errors.email
+                : 'Confirmation copy will be sent to your email'
+            }
+            onBlur={() => handleBlur('email')}
+            onChange={e => handleFieldChange('email', e.target.value)}
             placeholder='yourname@domain.com'
-            helperText='Confirmation copy will be sent to your email'
           />
 
           <Select
@@ -225,7 +390,10 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
             name='propertyType'
             value={propertyType}
             options={PROPERTY_OPTIONS}
-            onChange={val => setPropertyType(val)}
+            error={Boolean(touched.propertyType && errors.propertyType)}
+            helperText={touched.propertyType ? errors.propertyType : undefined}
+            onBlur={() => handleBlur('propertyType')}
+            onChange={val => handleFieldChange('propertyType', val)}
           />
         </div>
 
@@ -234,7 +402,10 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
           name='serviceType'
           value={serviceType}
           options={SERVICE_OPTIONS}
-          onChange={val => setServiceType(val)}
+          error={Boolean(touched.serviceType && errors.serviceType)}
+          helperText={touched.serviceType ? errors.serviceType : undefined}
+          onBlur={() => handleBlur('serviceType')}
+          onChange={val => handleFieldChange('serviceType', val)}
         />
 
         <TextField
@@ -244,7 +415,14 @@ Submitted via Above All Web Portal: ${new Date().toLocaleString()}
           multiline
           rows={compact ? 3 : 4}
           value={message}
-          onChange={e => setMessage(e.target.value)}
+          error={Boolean(touched.message && errors.message)}
+          helperText={
+            touched.message && errors.message
+              ? errors.message
+              : `${message.trim().length}/10 characters minimum`
+          }
+          onBlur={() => handleBlur('message')}
+          onChange={e => handleFieldChange('message', e.target.value)}
           placeholder='Please describe your system, tonnage if known, issues (e.g. not cooling, strange noise, leak), or installation requirements.'
         />
 

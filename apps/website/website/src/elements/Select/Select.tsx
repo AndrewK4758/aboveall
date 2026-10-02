@@ -1,4 +1,5 @@
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import MuiSelect, {
@@ -18,6 +19,7 @@ export interface SelectProps extends Omit<MuiSelectProps, 'onChange'> {
   label: string;
   options: SelectOption[];
   onChange?: (value: string) => void;
+  helperText?: React.ReactNode;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -28,6 +30,8 @@ export const Select: React.FC<SelectProps> = ({
   className = '',
   name,
   required,
+  error,
+  helperText,
   ...props
 }) => {
   const handleChange = (event: SelectChangeEvent<unknown>) => {
@@ -42,6 +46,7 @@ export const Select: React.FC<SelectProps> = ({
     <FormControl
       fullWidth
       required={required}
+      error={error}
       className={`${styles.selectRoot} ${className}`.trim()}
     >
       <InputLabel id={`${id}-label`}>{label}</InputLabel>
@@ -52,6 +57,7 @@ export const Select: React.FC<SelectProps> = ({
         value={value}
         label={label}
         onChange={handleChange}
+        error={error}
         {...props}
       >
         {options.map(opt => (
@@ -60,6 +66,7 @@ export const Select: React.FC<SelectProps> = ({
           </MenuItem>
         ))}
       </MuiSelect>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 };

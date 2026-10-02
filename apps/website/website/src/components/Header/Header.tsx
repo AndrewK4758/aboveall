@@ -100,7 +100,7 @@ export const Header: React.FC = () => {
         anchor='right'
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        PaperProps={{ className: styles.drawerPaper }}
+        slotProps={{ paper: { className: styles.drawerPaper } }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <img src='/logo.png' alt='Above All HVAC' style={{ height: 40 }} />

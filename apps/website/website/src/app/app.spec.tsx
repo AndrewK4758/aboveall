@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 import { ContactForm } from '../components/ContactForm/ContactForm';
@@ -58,11 +57,12 @@ describe('Above All HVAC & Mechanical Application', () => {
   });
 
   it('triggers mailto dispatch on ContactForm submission', () => {
-    // Mock window.location
     const originalLocation = window.location;
-    // @ts-expect-error - mock location
-    delete window.location;
-    window.location = { href: '' } as unknown as Location;
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      configurable: true,
+      value: { href: '' } as unknown as Location,
+    });
 
     render(
       <AppThemeProvider>
@@ -91,7 +91,55 @@ describe('Above All HVAC & Mechanical Application', () => {
     // Verify confirmation screen is shown
     expect(screen.getByText(/Thank You, John Smith!/i)).toBeDefined();
 
-    window.location = originalLocation;
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      configurable: true,
+      value: originalLocation,
+    });
+  });
+
+  it('validates individual form elements on submit and displays specific error messages', () => {
+    render(
+      <AppThemeProvider>
+        <ContactForm />
+      </AppThemeProvider>,
+    );
+
+    const submitBtn = screen.getByRole('button', { name: /Send Service Request/i });
+    fireEvent.click(submitBtn);
+
+    // Verify individual field validation errors appear
+    expect(screen.getByText(/Full name or company name is required/i)).toBeDefined();
+    expect(screen.getByText(/Please enter a valid phone number/i)).toBeDefined();
+    expect(screen.getByText(/Please enter a valid email address/i)).toBeDefined();
+    expect(screen.getByText(/Please provide project details/i)).toBeDefined();
+
+    // Verify aria-invalid on fields
+    const nameInput = screen.getByLabelText(/Full Name/i);
+    expect(nameInput.getAttribute('aria-invalid')).toBe('true');
+  });
+
+  it('validates individual elements on blur and clears errors when corrected', () => {
+    render(
+      <AppThemeProvider>
+        <ContactForm />
+      </AppThemeProvider>,
+    );
+
+    const emailInput = screen.getByLabelText(/Email Address/i);
+    fireEvent.change(emailInput, { target: { value: 'invalid-email-string' } });
+    fireEvent.blur(emailInput);
+
+    // Email should show individual validation error
+    expect(screen.getByText(/Please enter a valid email address/i)).toBeDefined();
+    expect(emailInput.getAttribute('aria-invalid')).toBe('true');
+
+    // Name should not yet show an error because it has not been touched
+    expect(screen.queryByText(/Full name or company name is required/i)).toBeNull();
+
+    // Fix the email
+    fireEvent.change(emailInput, { target: { value: 'valid@aboveallfla.com' } });
+    expect(screen.queryByText(/Please enter a valid email address/i)).toBeNull();
   });
 
   it('renders base elements with custom variants and the SVG LogoEmblem', () => {
