@@ -40,10 +40,6 @@
   border: none !important;
 }
 
-:global(.dark) .tabButton {
-  color: #CBD5E1 !important;
-}
-
 .tabButtonActive {
   background: #0E2D54 !important;
   color: #FFFFFF !important;

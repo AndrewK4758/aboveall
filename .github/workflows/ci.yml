@@ -1,40 +1,94 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 permissions:
-  actions: read
   contents: read
+  id-token: write
 
 jobs:
-  main:
+  test:
+    name: Test & Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          filter: tree:0
-          fetch-depth: 0
+          version: 10
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/docs/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      - run: npx nx start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: 'npm'
+          node-version: 22
+          cache: 'pnpm'
 
-      - run: npm ci
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      # Prepend any command with "nx record --" to record its logs to Nx Cloud
-      - run: npx nx record -- npx nx format:check --base="remotes/origin/main"
-      - run: npx nx run-many -t lint test build typecheck e2e
-      # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/docs/features/ci-features/self-healing-ci
-      - run: npx nx fix-ci
-        if: always()
+      - name: Run Linting
+        run: pnpm nx run-many -t lint
+
+      - name: Run Type Checking
+        run: pnpm nx run-many -t typecheck
+
+      - name: Run Unit Tests
+        run: pnpm nx run-many -t test
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run E2E Tests
+        run: pnpm exec playwright test --config=apps/website/website-e2e/playwright.config.ts --project=chromium
+
+      - name: Build Application
+        run: pnpm nx run @aboveall/website:build
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-dist
+          path: apps/website/website/dist
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Google App Engine
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: website-dist
+          path: apps/website/website/dist
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Deploy to Google App Engine
+        id: deploy
+        uses: google-github-actions/deploy-appengine@v2
+        with:
+          working_directory: apps/website/website
+          deliverables: app.yaml
+          promote: true
+
+      - name: Verify Live Deployment
+        run: |
+          echo "Deployed successfully to: ${{ steps.deploy.outputs.version_url }}"
+          curl -f -I "${{ steps.deploy.outputs.version_url }}"

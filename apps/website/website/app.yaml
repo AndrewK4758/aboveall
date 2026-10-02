@@ -1,0 +1,18 @@
+runtime: nodejs22
+instance_class: F1
+
+automatic_scaling:
+  max_instances: 5
+
+handlers:
+  # Serve static files directly from the build distribution folder
+  - url: /(.*\.(js|css|svg|png|jpg|jpeg|gif|ico|webp|woff|woff2|ttf|eot|json|map))$
+    static_files: dist/\1
+    upload: dist/.*\.(js|css|svg|png|jpg|jpeg|gif|ico|webp|woff|woff2|ttf|eot|json|map)$
+    secure: always
+
+  # Catch-all rule for Single Page Application client-side routing
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
+    secure: always

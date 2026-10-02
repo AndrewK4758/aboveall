@@ -1,0 +1,19 @@
+.gcloudignore
+.git
+.gitignore
+
+# Explicitly include dist directory containing built static files
+!dist/
+!dist/**
+
+# Exclude source code, tests, and node_modules from deployment payload
+node_modules/
+src/
+*.ts
+*.tsx
+tsconfig*.json
+.oxlintrc.json
+test-output/
+playwright-report/
+vite.config.ts
+vitest.config.*
